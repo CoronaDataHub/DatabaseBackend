@@ -8,6 +8,7 @@ import com.rethinkdb.net.Connection;
 import de.coronadatahub.databasebackend.config.ConfigManager;
 import de.coronadatahub.databasebackend.config.models.Config;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
+import de.coronadatahub.databasebackend.timer.TimerTask;
 
 public class DataBaseBackend {
 
@@ -18,12 +19,16 @@ public class DataBaseBackend {
     private Gson gson;
     private ConfigManager configManager;
 
+    private TimerTask timerTask;
+
     public DataBaseBackend() {
         this.gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .setPrettyPrinting().create();
         this.configManager = new ConfigManager(gson);
         setupRethinkDB();
+
+        timerTask = new TimerTask();
     }
 
     private void setupRethinkDB() {

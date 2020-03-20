@@ -4,7 +4,6 @@ import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.ast.Db;
 import com.rethinkdb.gen.ast.Table;
 import com.rethinkdb.net.Connection;
-import com.rethinkdb.net.Result;
 
 public class RethinkDBAPI {
 
@@ -26,7 +25,7 @@ public class RethinkDBAPI {
     }
 
     private void createTableIfNotExist(Db dataHubDB, String table) {
-        if (dataHubDB.tableList().contains(table).run(connection, Boolean.class).hasNext()) {
+        if (!dataHubDB.tableList().contains(table).run(connection, Boolean.class).first()) {
             dataHubDB.tableCreate(table).run(connection);
         }
     }
