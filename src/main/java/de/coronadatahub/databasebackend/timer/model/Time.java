@@ -13,6 +13,10 @@ public class Time {
         this.minute = minute;
     }
 
+    public static Time t(int hour, int minute){
+        return new Time(hour, minute);
+    }
+
     public int getHour() {
         return hour;
     }

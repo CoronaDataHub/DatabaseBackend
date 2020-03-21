@@ -19,15 +19,17 @@ public class Config {
     private String username;
     private String passwort;
     private String rkiURL;
+    private String coronvirusaappapikey;
 
     public Config() {
     }
 
-    public Config(String hostname, String username, String passwort, String rkiURL) {
+    public Config(String hostname, String username, String passwort, String rkiURL, String coronvirusaappapikey) {
         this.hostname = hostname;
         this.username = username;
         this.passwort = passwort;
         this.rkiURL = rkiURL;
+        this.coronvirusaappapikey = coronvirusaappapikey;
     }
 
     public String getHostname() {
@@ -60,5 +62,13 @@ public class Config {
 
     public void setRkiURL(String rkiURL) {
         this.rkiURL = rkiURL;
+    }
+
+    public String getCoronvirusaappapikey() {
+        return coronvirusaappapikey;
+    }
+
+    public void setCoronvirusaappapikey(String coronvirusaappapikey) {
+        this.coronvirusaappapikey = coronvirusaappapikey;
     }
 }

@@ -17,8 +17,8 @@ import com.google.gson.Gson;
 import com.rethinkdb.net.Result;
 import de.coronadatahub.databasebackend.config.models.Config;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
-import de.coronadatahub.databasebackend.database.models.Counties;
-import de.coronadatahub.databasebackend.database.models.CountiesData;
+import de.coronadatahub.databasebackend.database.models.rki.Counties;
+import de.coronadatahub.databasebackend.database.models.rki.CountiesData;
 import de.coronadatahub.databasebackend.rkidownloader.models.Attributes;
 import de.coronadatahub.databasebackend.rkidownloader.models.RKICounties;
 import de.coronadatahub.databasebackend.services.JsonReaderService;
@@ -42,6 +42,7 @@ public class RKIDownloader implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Run: RKIDownloader");
         try {
             uploadToRethinkDB(gson.fromJson(jsonReaderService.readJsonFromUrl(config.getRkiURL()), RKICounties.class));
         } catch (IOException e) {

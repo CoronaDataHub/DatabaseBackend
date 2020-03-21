@@ -48,7 +48,7 @@ public class ConfigManager {
         if (!Files.exists(configFile)) {
             try {
                 Files.createFile(configFile);
-                writeConfig(new Config("localhost", "datahub", "passwort", ""));
+                writeConfig(new Config("localhost", "datahub", "passwort", "link", "apikey"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

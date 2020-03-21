@@ -19,9 +19,11 @@ import com.rethinkdb.RethinkDB;
 import com.rethinkdb.net.Connection;
 import de.coronadatahub.databasebackend.config.ConfigManager;
 import de.coronadatahub.databasebackend.config.models.Config;
+import de.coronadatahub.databasebackend.coronavirusappdownloader.CoronavirusappDownloader;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
 import de.coronadatahub.databasebackend.rkidownloader.RKIDownloader;
 import de.coronadatahub.databasebackend.timer.TimerTask;
+import de.coronadatahub.databasebackend.timer.model.Time;
 
 public class DataBaseBackend {
 
@@ -43,13 +45,34 @@ public class DataBaseBackend {
         setupRethinkDB();
         timerTask = new TimerTask();
 
-        new RKIDownloader(config, gson, rethinkDBAPI).run();
+        registerRunnable();
     }
 
     private void setupRethinkDB() {
         config = this.configManager.readConfig();
         this.connection = this.rethinkDB.connection().hostname(config.getHostname()).user(config.getUsername(), config.getPasswort()).connect();
         rethinkDBAPI = new RethinkDBAPI(rethinkDB, connection);
+    }
+
+    private void registerRunnable(){
+        Runnable coronavirusappDownloader = new CoronavirusappDownloader(config, gson, rethinkDBAPI);
+        timerTask.addTask(Time.t(0,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(2,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(4,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(6,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(8,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(10,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(12,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(14,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(16,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(18,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(20,0), coronavirusappDownloader);
+        timerTask.addTask(Time.t(22,0), coronavirusappDownloader);
+
+
+        Runnable rkiDownloader = new RKIDownloader(config, gson, rethinkDBAPI);
+        timerTask.addTask(Time.t(0, 0), rkiDownloader);
+        timerTask.addTask(Time.t(12,0), rkiDownloader);
     }
 
     public RethinkDB getRethinkDB() {
