@@ -1,6 +1,0 @@
-{
-  "hostname": "45.142.114.8",
-  "username": "datahub",
-  "passwort": "u)+~Ts,Jm{=QAXC94X507Bo8x3S*v[1nG2@U6qZ}",
-  "rkiURL": "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
-}
