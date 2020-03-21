@@ -13,12 +13,65 @@
 
 package de.coronadatahub.databasebackend.restapi;
 
-import static spark.Spark.*;
+import de.coronadatahub.databasebackend.database.RethinkDBAPI;
+import de.coronadatahub.databasebackend.database.models.apikey.APIKey;
+import de.coronadatahub.databasebackend.database.models.coronavirusapp.Place;
+import de.coronadatahub.databasebackend.rkidownloader.models.RKICounties;
+import spark.Spark;
+
+import java.util.List;
 
 public class RestAPI {
 
+    private APIKeyManager apiKeyManager;
+    private RethinkDBAPI rethinkDBAPI;
+
+    public RestAPI(RethinkDBAPI rethinkDBAPI) {
+        this.rethinkDBAPI = rethinkDBAPI;
+        this.apiKeyManager = new APIKeyManager(rethinkDBAPI);
+        init();
+    }
+
     private void init(){
-        get("/hello", (req, res) -> "Hello World");
+        Spark.get("/api/v1/coronavirusapp/getPlaces", (request, response) -> {
+            String apikey = request.headers("APIKEY");
+            if (apiKeyManager.isKeyExist(apikey)){
+                APIKey key = apiKeyManager.getKey(apikey);
+                if (key.getHostnames().contains(request.host().split(":")[0])) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    getPlaces().forEach(stringBuilder::append);
+                    return stringBuilder.toString();
+                }else {
+                    return "This hostname is not registered, if you want to change the hostname please contact us.";
+                }
+            }else {
+                return "The key is not registered!";
+            }
+        });
+
+        Spark.get("/api/v1/rki/getCounties", (request, response) -> {
+            String apikey = request.headers("APIKEY");
+            if (apiKeyManager.isKeyExist(apikey)){
+                APIKey key = apiKeyManager.getKey(apikey);
+                if (key.getHostnames().contains(request.host().split(":")[0])) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    getCounties().forEach(stringBuilder::append);
+                    return stringBuilder.toString();
+                }else {
+                    return "This hostname is not registered, if you want to change the hostname please contact us.";
+                }
+            }else {
+                return "The key is not registered!";
+            }
+        });
+    }
+
+    private List<Place> getPlaces() {
+        return rethinkDBAPI.getR().db("Datahub").table("Coronavirusapp").run(rethinkDBAPI.getConnect(), Place.class).toList();
+    }
+
+    private List<RKICounties> getCounties() {
+        return rethinkDBAPI.getR().db("Datahub").table("Counties").run(rethinkDBAPI.getConnect(), RKICounties.class).toList();
     }
 
 

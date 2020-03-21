@@ -21,6 +21,8 @@ import de.coronadatahub.databasebackend.config.ConfigManager;
 import de.coronadatahub.databasebackend.config.models.Config;
 import de.coronadatahub.databasebackend.coronavirusappdownloader.CoronavirusappDownloader;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
+import de.coronadatahub.databasebackend.restapi.AdminRestAPI;
+import de.coronadatahub.databasebackend.restapi.RestAPI;
 import de.coronadatahub.databasebackend.rkidownloader.RKIDownloader;
 import de.coronadatahub.databasebackend.timer.TimerTask;
 import de.coronadatahub.databasebackend.timer.model.Time;
@@ -46,6 +48,8 @@ public class DataBaseBackend {
         timerTask = new TimerTask();
 
         registerRunnable();
+        new RestAPI(rethinkDBAPI);
+        new AdminRestAPI(rethinkDBAPI, gson);
     }
 
     private void setupRethinkDB() {
