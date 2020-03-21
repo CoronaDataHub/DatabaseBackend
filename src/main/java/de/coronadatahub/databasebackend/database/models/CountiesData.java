@@ -11,61 +11,36 @@
  *
  */
 
-package de.coronadatahub.databasebackend.rkidownloader.models;
+package de.coronadatahub.databasebackend.database.models;
 
-public class Attributes {
-    private float OBJECTID;
-    private String GEN;
-    private String BEZ;
+public class CountiesData {
+
+    private long time;
+
     private float death_rate;
     private float cases;
     private float deaths;
     private float cases_per_100k;
     private float cases_per_population;
-    private String BL;
-    private String BL_ID;
-    private String county;
 
-
-    public Attributes() {
+    public CountiesData() {
     }
 
-    public Attributes(float OBJECTID, String GEN, String BEZ, float death_rate, float cases, float deaths, float cases_per_100k, float cases_per_population, String BL, String BL_ID, String county) {
-        this.OBJECTID = OBJECTID;
-        this.GEN = GEN;
-        this.BEZ = BEZ;
+    public CountiesData(long time, float death_rate, float cases, float deaths, float cases_per_100k, float cases_per_population) {
+        this.time = time;
         this.death_rate = death_rate;
         this.cases = cases;
         this.deaths = deaths;
         this.cases_per_100k = cases_per_100k;
         this.cases_per_population = cases_per_population;
-        this.BL = BL;
-        this.BL_ID = BL_ID;
-        this.county = county;
     }
 
-    public float getOBJECTID() {
-        return OBJECTID;
+    public long getTime() {
+        return time;
     }
 
-    public void setOBJECTID(float OBJECTID) {
-        this.OBJECTID = OBJECTID;
-    }
-
-    public String getGEN() {
-        return GEN;
-    }
-
-    public void setGEN(String GEN) {
-        this.GEN = GEN;
-    }
-
-    public String getBEZ() {
-        return BEZ;
-    }
-
-    public void setBEZ(String BEZ) {
-        this.BEZ = BEZ;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public float getDeath_rate() {
@@ -106,29 +81,5 @@ public class Attributes {
 
     public void setCases_per_population(float cases_per_population) {
         this.cases_per_population = cases_per_population;
-    }
-
-    public String getBL() {
-        return BL;
-    }
-
-    public void setBL(String BL) {
-        this.BL = BL;
-    }
-
-    public String getBL_ID() {
-        return BL_ID;
-    }
-
-    public void setBL_ID(String BL_ID) {
-        this.BL_ID = BL_ID;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
     }
 }

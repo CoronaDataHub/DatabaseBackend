@@ -10,46 +10,6 @@
  *
  *
  */
-
-/*
- * *
- *    ____                                          ____            _             _   _           _
- *   / ___|   ___    _ __    ___    _ __     __ _  |  _ \    __ _  | |_    __ _  | | | |  _   _  | |__
- *  | |      / _ \  | '__|  / _ \  | '_ \   / _` | | | | |  / _` | | __|  / _` | | |_| | | | | | | '_ \
- *  | |___  | (_) | | |    | (_) | | | | | | (_| | | |_| | | (_| | | |_  | (_| | |  _  | | |_| | | |_) |
- *   \____|  \___/  |_|     \___/  |_| |_|  \__,_| |____/   \__,_|  \__|  \__,_| |_| |_|  \__,_| |_.__/
- *
- *  	CoronaDataHub ist ein Projekt welches im Rahmen von der Initiative #WirVSVirus-Hackathon vom 20-22 März 2020 ins Leben gerufen wurde.
- *
- *
- */
-
-/*
- * *
- *    ____                                          ____            _             _   _           _
- *   / ___|   ___    _ __    ___    _ __     __ _  |  _ \    __ _  | |_    __ _  | | | |  _   _  | |__
- *  | |      / _ \  | '__|  / _ \  | '_ \   / _` | | | | |  / _` | | __|  / _` | | |_| | | | | | | '_ \
- *  | |___  | (_) | | |    | (_) | | | | | | (_| | | |_| | | (_| | | |_  | (_| | |  _  | | |_| | | |_) |
- *   \____|  \___/  |_|     \___/  |_| |_|  \__,_| |____/   \__,_|  \__|  \__,_| |_| |_|  \__,_| |_.__/
- *
- *  	CoronaDataHub ist ein Projekt welches im Rahmen von der Initiative #WirVSVirus-Hackathon vom 20-22 März 2020 ins Leben gerufen wurde.
- *
- *
- */
-
-/*
- * *
- *    ____                                          ____            _             _   _           _
- *   / ___|   ___    _ __    ___    _ __     __ _  |  _ \    __ _  | |_    __ _  | | | |  _   _  | |__
- *  | |      / _ \  | '__|  / _ \  | '_ \   / _` | | | | |  / _` | | __|  / _` | | |_| | | | | | | '_ \
- *  | |___  | (_) | | |    | (_) | | | | | | (_| | | |_| | | (_| | | |_  | (_| | |  _  | | |_| | | |_) |
- *   \____|  \___/  |_|     \___/  |_| |_|  \__,_| |____/   \__,_|  \__|  \__,_| |_| |_|  \__,_| |_.__/
- *
- *  	CoronaDataHub ist ein Projekt welches im Rahmen von der Initiative #WirVSVirus-Hackathon vom 20-22 März 2020 ins Leben gerufen wurde.
- *
- *
- */
-
 package de.coronadatahub.databasebackend;
 
 import com.google.gson.FieldNamingPolicy;
@@ -60,6 +20,7 @@ import com.rethinkdb.net.Connection;
 import de.coronadatahub.databasebackend.config.ConfigManager;
 import de.coronadatahub.databasebackend.config.models.Config;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
+import de.coronadatahub.databasebackend.rkidownloader.RKIDownloader;
 import de.coronadatahub.databasebackend.timer.TimerTask;
 
 public class DataBaseBackend {
@@ -81,6 +42,8 @@ public class DataBaseBackend {
         this.configManager = new ConfigManager(gson);
         setupRethinkDB();
         timerTask = new TimerTask();
+
+        new RKIDownloader(config, gson, rethinkDBAPI).run();
     }
 
     private void setupRethinkDB() {

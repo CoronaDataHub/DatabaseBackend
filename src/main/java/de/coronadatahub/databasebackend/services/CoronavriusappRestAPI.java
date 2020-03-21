@@ -11,26 +11,10 @@
  *
  */
 
-package de.coronadatahub.databasebackend.rkidownloader.models;
+package de.coronadatahub.databasebackend.services;
 
-import java.util.ArrayList;
+//https://coronavirus.app
+//API Doku: https://www.notion.so/Covid-19-Coronavirus-API-d1ce9d47e64c473bbc9a034661477e84
 
-public class RKICounties {
-    private ArrayList<Features> features = new ArrayList<>();
-
-    public RKICounties() {
-    }
-
-    public RKICounties(ArrayList<Features> features) {
-        this.features = features;
-    }
-
-
-    public ArrayList<Features> getFeatures() {
-        return features;
-    }
-
-    public void setFeatures(ArrayList<Features> features) {
-        this.features = features;
-    }
+public class CoronavriusappRestAPI {
 }
