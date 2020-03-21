@@ -15,14 +15,8 @@ package de.coronadatahub.databasebackend.math;
 
 public class DarkFigure {
 
-    private double numberOfDeaths; //
-    private double deathRate; //in percent * 100 Normal = 110; Worst Case = 350
-    private double infectionToDeath; //in days
-    private double doublingRate; //in days
 
-    public void calculate(){
-        double i = (numberOfDeaths * deathRate) * (Math.pow(2, (infectionToDeath/doublingRate)));
+    public double calculate(double numberOfDeaths, double doublingRate/*In Days*/){
+        return (numberOfDeaths * 100) * (Math.pow(2, (17/doublingRate)));
     }
-
-
 }
