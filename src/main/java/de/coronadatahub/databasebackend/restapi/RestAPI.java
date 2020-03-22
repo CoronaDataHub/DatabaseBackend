@@ -36,18 +36,7 @@ public class RestAPI {
     }
 
     private void init() {
-
         Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-
-        /*Spark.before((request, response) -> {
-                    response.header("Access-Control-Allow-Origin", "*");
-                    response.header("Access-Control-Request-Headers", "x-api-key");
-                    response.header("Access-Control-Allow-Credentials", "true");
-                    response.header("Access-Control-Allow-Methods", "GET,POST");
-                    response.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Access-Control-Request-Method, Access-Control-Request-Headers, x-api-key");
-                    response.status(200);
-                }
-        );*/
         Spark.get("api/v1/coronavirusapp/getPlaces", (request, response) -> {
             String apikey = request.queryParams("apikey");
             System.out.println(request.host());

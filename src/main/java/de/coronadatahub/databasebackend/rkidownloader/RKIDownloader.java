@@ -16,6 +16,8 @@ package de.coronadatahub.databasebackend.rkidownloader;
 import com.google.gson.Gson;
 import com.rethinkdb.net.Result;
 import de.coronadatahub.databasebackend.config.models.Config;
+import de.coronadatahub.databasebackend.coutiescache.CountiesChache;
+import de.coronadatahub.databasebackend.coutiescache.models.Search;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
 import de.coronadatahub.databasebackend.database.models.rki.Counties;
 import de.coronadatahub.databasebackend.database.models.rki.CountiesData;
@@ -32,12 +34,14 @@ public class RKIDownloader implements Runnable {
     private Config config;
     private Gson gson;
     private RethinkDBAPI rethinkDBAPI;
+    private CountiesChache countiesChache;
 
     public RKIDownloader(Config config, Gson gson, RethinkDBAPI rethinkDBAPI) {
         this.config = config;
         this.rethinkDBAPI = rethinkDBAPI;
         this.gson = gson;
         jsonReaderService = new JsonReaderService();
+        this.countiesChache = new CountiesChache(gson);
     }
 
     @Override
@@ -65,9 +69,17 @@ public class RKIDownloader implements Runnable {
                 counties.setBL_ID(Double.parseDouble(attributes.getBL_ID()));
                 counties.setCounty(attributes.getCounty());
                 counties.setCountiesData(new ArrayList<>());
+
+                Search search = countiesChache.getContent(counties.getGEN().replaceAll(" ", "+")).getSearches().get(0);
+
+                if (search != null){
+                    counties.setLatitude(Double.parseDouble(search.getLat()));
+                    counties.setLongitude(Double.parseDouble(search.getLon()));
+                }
             } else {
                 rethinkDBAPI.getR().db("Datahub").table("Counties").filter(row -> row.g("objectid").eq(objectid)).delete().run(rethinkDBAPI.getConnect());
             }
+
             CountiesData countiesData = new CountiesData();
             countiesData.setTime(currentTime);
             countiesData.setDeath_rate(attributes.getDeath_rate());

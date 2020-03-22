@@ -38,11 +38,13 @@ public class Counties {
     private double BL_ID;
     private String county;
     private ArrayList<CountiesData> countiesData;
+    private double latitude;
+    private double longitude;
 
     public Counties() {
     }
 
-    public Counties(double OBJECTID, String GEN, String BEZ, String BL, double BL_ID, String county, ArrayList<CountiesData> countiesData) {
+    public Counties(double OBJECTID, String GEN, String BEZ, String BL, double BL_ID, String county, ArrayList<CountiesData> countiesData, double latitude, double longitude) {
         this.OBJECTID = OBJECTID;
         this.GEN = GEN;
         this.BEZ = BEZ;
@@ -50,6 +52,8 @@ public class Counties {
         this.BL_ID = BL_ID;
         this.county = county;
         this.countiesData = countiesData;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public double getOBJECTID() {
@@ -106,5 +110,21 @@ public class Counties {
 
     public void setCountiesData(ArrayList<CountiesData> countiesData) {
         this.countiesData = countiesData;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

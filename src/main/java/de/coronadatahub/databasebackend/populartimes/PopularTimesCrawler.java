@@ -420,7 +420,7 @@ public class PopularTimesCrawler {
      * @param jpopularTimes
      * @return
      */
-    public Map<Integer, Map<Long, Double>> mapPopularTimes(JsonArray jpopularTimes) {
+    private Map<Integer, Map<Long, Double>> mapPopularTimes(JsonArray jpopularTimes) {
 
         Map<Integer, Map<Long, Double>> map = new HashMap<>();
 

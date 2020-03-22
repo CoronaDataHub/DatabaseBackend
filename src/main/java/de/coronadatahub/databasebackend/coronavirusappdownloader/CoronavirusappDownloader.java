@@ -20,6 +20,7 @@ import de.coronadatahub.databasebackend.coronavirusappdownloader.models.places.G
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
 import de.coronadatahub.databasebackend.database.models.coronavirusapp.DataHistory;
 import de.coronadatahub.databasebackend.database.models.coronavirusapp.Place;
+import de.coronadatahub.databasebackend.math.DarkFigure;
 import de.coronadatahub.databasebackend.services.CoronavriusappRestAPI;
 
 import java.util.ArrayList;
@@ -58,10 +59,11 @@ public class CoronavirusappDownloader implements Runnable {
             place.setLastUpdated(placesData.getLastUpdated());
             DataHistory dataHistory = new DataHistory();
             dataHistory.setTime(time);
-            dataHistory.setInfected(placesData.getInfected());
-            dataHistory.setRecovered(placesData.getRecovered());
-            dataHistory.setDead(placesData.getDead());
-            dataHistory.setSick(placesData.getSick());
+            dataHistory.setInfected(Double.parseDouble(placesData.getInfected()));
+            dataHistory.setRecovered(Double.parseDouble(placesData.getRecovered()));
+            dataHistory.setDead(Double.parseDouble(placesData.getDead()));
+            dataHistory.setSick(Double.parseDouble(placesData.getSick()));
+            dataHistory.setDarkFigure(DarkFigure.calculate(Double.parseDouble(placesData.getDead()), 3));
             place.getDataHistories().add(dataHistory);
 
             rethinkDBAPI.getR().db("Datahub").table("Coronavirusapp").insert(place).run(rethinkDBAPI.getConnect());

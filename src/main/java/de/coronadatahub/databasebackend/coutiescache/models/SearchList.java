@@ -11,12 +11,26 @@
  *
  */
 
-package de.coronadatahub.databasebackend.math;
+package de.coronadatahub.databasebackend.coutiescache.models;
 
-public class DarkFigure {
+import java.util.ArrayList;
 
+public class SearchList {
 
-    public static double calculate(double numberOfDeaths, double doublingRate/*In Days*/){
-        return (numberOfDeaths * 100) * (Math.pow(2, (17/doublingRate)));
+    private ArrayList<Search> searches;
+
+    public SearchList() {
+    }
+
+    public SearchList(ArrayList<Search> searches) {
+        this.searches = searches;
+    }
+
+    public ArrayList<Search> getSearches() {
+        return searches;
+    }
+
+    public void setSearches(ArrayList<Search> searches) {
+        this.searches = searches;
     }
 }

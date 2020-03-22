@@ -16,20 +16,22 @@ package de.coronadatahub.databasebackend.database.models.coronavirusapp;
 public class DataHistory {
 
     private long time;
-    private String infected;
-    private String recovered;
-    private String dead;
-    private String sick;
+    private double infected;
+    private double recovered;
+    private double dead;
+    private double sick;
+    private double darkFigure;
 
     public DataHistory() {
     }
 
-    public DataHistory(long time, String infected, String recovered, String dead, String sick) {
+    public DataHistory(long time, double infected, double recovered, double dead, double sick, double darkFigure) {
         this.time = time;
         this.infected = infected;
         this.recovered = recovered;
         this.dead = dead;
         this.sick = sick;
+        this.darkFigure = darkFigure;
     }
 
     public long getTime() {
@@ -40,35 +42,43 @@ public class DataHistory {
         this.time = time;
     }
 
-    public String getInfected() {
+    public double getInfected() {
         return infected;
     }
 
-    public void setInfected(String infected) {
+    public void setInfected(double infected) {
         this.infected = infected;
     }
 
-    public String getRecovered() {
+    public double getRecovered() {
         return recovered;
     }
 
-    public void setRecovered(String recovered) {
+    public void setRecovered(double recovered) {
         this.recovered = recovered;
     }
 
-    public String getDead() {
+    public double getDead() {
         return dead;
     }
 
-    public void setDead(String dead) {
+    public void setDead(double dead) {
         this.dead = dead;
     }
 
-    public String getSick() {
+    public double getSick() {
         return sick;
     }
 
-    public void setSick(String sick) {
+    public void setSick(double sick) {
         this.sick = sick;
+    }
+
+    public double getDarkFigure() {
+        return darkFigure;
+    }
+
+    public void setDarkFigure(double darkFigure) {
+        this.darkFigure = darkFigure;
     }
 }

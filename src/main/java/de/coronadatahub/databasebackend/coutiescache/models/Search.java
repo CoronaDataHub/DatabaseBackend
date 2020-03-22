@@ -11,12 +11,34 @@
  *
  */
 
-package de.coronadatahub.databasebackend.math;
+package de.coronadatahub.databasebackend.coutiescache.models;
 
-public class DarkFigure {
+public class Search {
 
+    private String lat;
+    private String lon;
 
-    public static double calculate(double numberOfDeaths, double doublingRate/*In Days*/){
-        return (numberOfDeaths * 100) * (Math.pow(2, (17/doublingRate)));
+    public Search() {
+    }
+
+    public Search(String lat, String lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
     }
 }
