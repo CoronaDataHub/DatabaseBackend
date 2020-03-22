@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="DataBaseBackend:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/DataBaseBackend_jar</output-path>
+    <output-path>$USER_HOME$/Desktop</output-path>
     <root id="archive" name="DataBaseBackend.jar">
       <element id="module-output" name="DataBaseBackend" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.jar" path-in-jar="/" />

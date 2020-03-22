@@ -32,7 +32,7 @@ public class AdminRestAPI {
 
     private void init(){
         Spark.post("/api/v1/apikey/createKey", (request, response) -> {
-            String apikey = request.headers("APIKEY");
+            String apikey = request.queryParams("apikey");
             if (apiKeyManager.isKeyExist(apikey)){
                 APIKey key = apiKeyManager.getKey(apikey);
                 if (key.getHostnames().contains(request.host().split(":")[0])) {
@@ -41,6 +41,7 @@ public class AdminRestAPI {
                         apiKeyManager.insert(apiKey);
                         return "success";
                     }catch (Exception ex){
+                        ex.printStackTrace();
                         return "Body is wrong!";
                     }
                 }else {

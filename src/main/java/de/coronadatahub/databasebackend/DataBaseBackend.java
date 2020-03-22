@@ -48,8 +48,9 @@ public class DataBaseBackend {
         timerTask = new TimerTask();
 
         registerRunnable();
-        new RestAPI(rethinkDBAPI);
+        new RestAPI(rethinkDBAPI,gson);
         new AdminRestAPI(rethinkDBAPI, gson);
+        //new PopularTimesCrawler();
     }
 
     private void setupRethinkDB() {
@@ -77,6 +78,9 @@ public class DataBaseBackend {
         Runnable rkiDownloader = new RKIDownloader(config, gson, rethinkDBAPI);
         timerTask.addTask(Time.t(0, 0), rkiDownloader);
         timerTask.addTask(Time.t(12,0), rkiDownloader);
+
+        rkiDownloader.run();
+        coronavirusappDownloader.run();
     }
 
     public RethinkDB getRethinkDB() {
