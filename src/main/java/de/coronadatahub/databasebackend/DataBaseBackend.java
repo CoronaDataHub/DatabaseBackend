@@ -71,7 +71,7 @@ public class DataBaseBackend {
         timerTask.addTask(Time.t(12,0), rkiDownloader);
 
         //rkiDownloader.run();
-        coronavirusappDownloader.run();
+        //coronavirusappDownloader.run();
         //Runnable coronaVirusDownloadHistory = new CoronaVirusDownloadHistory(rethinkDBAPI, gson, config);
         //coronaVirusDownloadHistory.run();
     }

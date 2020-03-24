@@ -57,17 +57,14 @@ public class APIKeyManager {
         }
     }
 
-    private void deleteKey(String key){
-        rethinkDBAPI.getR().db("Datahub").table("APIKeys").filter(row -> row.g("key").eq(key)).delete().run(rethinkDBAPI.getConnect());
-    }
+
 
     public void insert(APIKey apiKey) {
         rethinkDBAPI.getR().db("Datahub").table("APIKeys").insert(apiKey).run(rethinkDBAPI.getConnect());
     }
 
     public void update(APIKey apiKey){
-        deleteKey(apiKey.getKey());
-        insert(apiKey);
+        rethinkDBAPI.getR().db("Datahub").table("APIKeys").filter(row -> row.g("objectID").eq(apiKey.getObjectID())).update(apiKey).run(rethinkDBAPI.getConnect());
     }
 
 

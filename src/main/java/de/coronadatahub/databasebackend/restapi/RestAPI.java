@@ -38,11 +38,15 @@ public class RestAPI {
         Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
         Spark.get("api/v1/coronavirusapp/getPlaces", (request, response) -> {
-            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.ip());
+            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.host());
             if (apikey.equalsIgnoreCase("true")) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("[");
                 getPlaces().forEach(place -> {
+                    //System.out.println("Test");
+                    //Object[] objects = (DataHistory[]) Arrays.copyOfRange(place.getDataHistories().toArray(), place.getDataHistories().size() - 4, place.getDataHistories().size()-1);
+                    //System.out.println(Arrays.toString(objects));
+                    //place.setDataHistories(new ArrayList<>(List.of(objects)));
                     stringBuilder.append(gson.toJson(place));
                     stringBuilder.append(",");
                 });
@@ -55,7 +59,7 @@ public class RestAPI {
         });
 
         Spark.get("/api/v1/rki/getCounties", (request, response) -> {
-            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.ip());
+            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.host());
             if (apikey.equalsIgnoreCase("true")) {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("[");

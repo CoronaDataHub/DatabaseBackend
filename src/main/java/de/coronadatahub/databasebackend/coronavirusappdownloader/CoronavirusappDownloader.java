@@ -24,6 +24,7 @@ import de.coronadatahub.databasebackend.math.DarkFigure;
 import de.coronadatahub.databasebackend.services.CoronavriusappRestAPI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class CoronavirusappDownloader implements Runnable {
 
@@ -65,6 +66,7 @@ public class CoronavirusappDownloader implements Runnable {
             dataHistory.setSick(Double.parseDouble(placesData.getSick()));
             dataHistory.setDarkFigure(DarkFigure.calculate(Double.parseDouble(placesData.getDead()), 3));
             place.getDataHistories().add(dataHistory);
+            place.getDataHistories().sort(Comparator.comparingDouble(DataHistory::getTime));
 
             rethinkDBAPI.getR().db("Datahub").table("Coronavirusapp").insert(place).run(rethinkDBAPI.getConnect());
 
