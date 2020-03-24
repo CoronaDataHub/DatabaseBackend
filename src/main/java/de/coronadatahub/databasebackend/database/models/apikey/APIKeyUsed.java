@@ -10,23 +10,25 @@
  *
  *
  */
-package de.coronadatahub.databasebackend.coronavirusappdownloader.models.history;
 
-public class GetHistory {
-    private HistoryData data;
+package de.coronadatahub.databasebackend.database.models.apikey;
 
-    public GetHistory() {
+public class APIKeyUsed {
+
+    private long time;
+
+    public APIKeyUsed() {
     }
 
-    public GetHistory(HistoryData data) {
-        this.data = data;
+    public APIKeyUsed(long time) {
+        this.time = time;
     }
 
-    public HistoryData getData() {
-        return data;
+    public long getTime() {
+        return time;
     }
 
-    public void setData(HistoryData data) {
-        this.data = data;
+    public void setTime(long time) {
+        this.time = time;
     }
 }

@@ -10,23 +10,20 @@
  *
  *
  */
-package de.coronadatahub.databasebackend.coronavirusappdownloader.models.history;
 
-public class GetHistory {
-    private HistoryData data;
+package de.coronadatahub.databasebackend.populartimes.xpath;
 
-    public GetHistory() {
+import de.coronadatahub.databasebackend.populartimes.xpath.enums.Day;
+
+public class XPathManager {
+
+    public static String SUN_0 = "//*[@id=\"pane\"]/div/div[1]/div/div/div[18]/div[3]/div[1]";
+    //*[@id="pane"]/div/div[1]/div/div/div[18]/div[3]/div[3]/div[2]
+
+
+    public String getXPathFromDay(Day day) {
+        return "//*[@id=\"pane\"]/div/div[1]/div/div/div[18]/div[3]/div[" + day.getId() + "]";
+        //return "#pane > div > div.widget-pane-content.scrollable-y > div > div > div.section-popular-times > div.section-popular-times-container > div:nth-child(" + day.getId() + ")";
     }
 
-    public GetHistory(HistoryData data) {
-        this.data = data;
-    }
-
-    public HistoryData getData() {
-        return data;
-    }
-
-    public void setData(HistoryData data) {
-        this.data = data;
-    }
 }

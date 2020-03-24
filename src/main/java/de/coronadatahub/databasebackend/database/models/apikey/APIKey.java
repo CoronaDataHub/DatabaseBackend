@@ -25,11 +25,13 @@ public class APIKey {
     private String ownerEmail;
     private ArrayList<String> hostnames;
     private boolean admin;
+    private double requestsAllTime;
+    private ArrayList<APIKeyUsed> apiKeyUseds;
 
     public APIKey() {
     }
 
-    public APIKey(int objectID, long createTime, String key, boolean activated, String owner, String ownerEmail, ArrayList<String> hostnames, boolean admin) {
+    public APIKey(int objectID, long createTime, String key, boolean activated, String owner, String ownerEmail, ArrayList<String> hostnames, boolean admin, double requestsAllTime, ArrayList<APIKeyUsed> apiKeyUseds) {
         this.objectID = objectID;
         this.createTime = createTime;
         this.key = key;
@@ -38,6 +40,8 @@ public class APIKey {
         this.ownerEmail = ownerEmail;
         this.hostnames = hostnames;
         this.admin = admin;
+        this.requestsAllTime = requestsAllTime;
+        this.apiKeyUseds = apiKeyUseds;
     }
 
     public int getObjectID() {
@@ -102,5 +106,21 @@ public class APIKey {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public double getRequestsAllTime() {
+        return requestsAllTime;
+    }
+
+    public void setRequestsAllTime(double requestsAllTime) {
+        this.requestsAllTime = requestsAllTime;
+    }
+
+    public ArrayList<APIKeyUsed> getApiKeyUseds() {
+        return apiKeyUseds;
+    }
+
+    public void setApiKeyUseds(ArrayList<APIKeyUsed> apiKeyUseds) {
+        this.apiKeyUseds = apiKeyUseds;
     }
 }

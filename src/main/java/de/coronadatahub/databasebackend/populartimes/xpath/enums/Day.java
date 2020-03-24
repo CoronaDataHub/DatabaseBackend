@@ -10,23 +10,32 @@
  *
  *
  */
-package de.coronadatahub.databasebackend.coronavirusappdownloader.models.history;
 
-public class GetHistory {
-    private HistoryData data;
+package de.coronadatahub.databasebackend.populartimes.xpath.enums;
 
-    public GetHistory() {
+public enum Day {
+
+    SUNDAY(1,"Sunday"),
+    MONDAY(2,"Monday"),
+    TUESDAY(3,"Tuesday"),
+    WEDNESDAY(4,"Wednesday"),
+    THURSDAY(5,"Thursday"),
+    FRIDAY (6,"Friday"),
+    SATURDAY (7,"Saturday");
+
+    private int id;
+    private String name;
+
+    Day(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public GetHistory(HistoryData data) {
-        this.data = data;
+    public int getId() {
+        return id;
     }
 
-    public HistoryData getData() {
-        return data;
-    }
-
-    public void setData(HistoryData data) {
-        this.data = data;
+    public String getName() {
+        return name;
     }
 }

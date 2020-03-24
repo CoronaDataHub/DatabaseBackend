@@ -49,7 +49,7 @@ public class CoronavriusappRestAPI {
     }
 
     public String getHistory(String placeID) {
-        String uri = url + "get-history?id={" + placeID + "}";
+        String uri = url + "get-history?id=" + placeID;
         HttpUriRequest request = getRequest(uri);
         try {
             return readAll(new BufferedReader(new InputStreamReader(client.execute(request).getEntity().getContent())));

@@ -15,7 +15,6 @@ package de.coronadatahub.databasebackend.restapi;
 
 import com.google.gson.Gson;
 import de.coronadatahub.databasebackend.database.RethinkDBAPI;
-import de.coronadatahub.databasebackend.database.models.apikey.APIKey;
 import de.coronadatahub.databasebackend.database.models.coronavirusapp.Place;
 import de.coronadatahub.databasebackend.database.models.rki.Counties;
 import spark.Spark;
@@ -37,49 +36,38 @@ public class RestAPI {
 
     private void init() {
         Spark.before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+
         Spark.get("api/v1/coronavirusapp/getPlaces", (request, response) -> {
-            String apikey = request.queryParams("apikey");
-            System.out.println(request.host());
-            if (apiKeyManager.isKeyExist(apikey)) {
-                APIKey key = apiKeyManager.getKey(apikey);
-                if (key.getHostnames().contains(request.host().split(":")[0])) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("[");
-                    getPlaces().forEach(place -> {
-                        stringBuilder.append(gson.toJson(place));
-                        stringBuilder.append(",");
-                    });
-                    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-                    stringBuilder.append("]");
-                    return stringBuilder.toString();
-                } else {
-                    return "This hostname is not registered, if you want to change the hostname please contact us.";
-                }
+            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.ip());
+            if (apikey.equalsIgnoreCase("true")) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[");
+                getPlaces().forEach(place -> {
+                    stringBuilder.append(gson.toJson(place));
+                    stringBuilder.append(",");
+                });
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                stringBuilder.append("]");
+                return stringBuilder.toString();
             } else {
-                return "The key is not registered!";
+                return apikey;
             }
         });
 
         Spark.get("/api/v1/rki/getCounties", (request, response) -> {
-            String apikey = request.queryParams("apikey");
-            if (apiKeyManager.isKeyExist(apikey)) {
-                APIKey key = apiKeyManager.getKey(apikey);
-                if (key.getHostnames().contains(request.host().split(":")[0])) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("[");
-                    getCounties().forEach(place -> {
-                        stringBuilder.append(gson.toJson(place));
-                        stringBuilder.append(",");
-                    });
-                    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-                    stringBuilder.append("]");
-                    System.out.println(stringBuilder.toString());
-                    return stringBuilder.toString();
-                } else {
-                    return "This hostname is not registered, if you want to change the hostname please contact us.";
-                }
+            String apikey = apiKeyManager.isKeyValid(request.queryParams("apikey"), request.ip());
+            if (apikey.equalsIgnoreCase("true")) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("[");
+                getCounties().forEach(place -> {
+                    stringBuilder.append(gson.toJson(place));
+                    stringBuilder.append(",");
+                });
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                stringBuilder.append("]");
+                return stringBuilder.toString();
             } else {
-                return "The key is not registered!";
+                return apikey;
             }
         });
     }
@@ -91,8 +79,4 @@ public class RestAPI {
     private List<Counties> getCounties() {
         return rethinkDBAPI.getR().db("Datahub").table("Counties").run(rethinkDBAPI.getConnect(), Counties.class).toList();
     }
-
-
-
-
 }

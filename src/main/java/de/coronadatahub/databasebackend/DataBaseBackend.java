@@ -61,26 +61,19 @@ public class DataBaseBackend {
 
     private void registerRunnable(){
         Runnable coronavirusappDownloader = new CoronavirusappDownloader(config, gson, rethinkDBAPI);
-        timerTask.addTask(Time.t(0,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(2,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(4,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(6,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(8,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(10,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(12,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(14,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(16,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(18,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(20,0), coronavirusappDownloader);
-        timerTask.addTask(Time.t(22,0), coronavirusappDownloader);
-
+        for (int i = 0; i < 23; i++) {
+            timerTask.addTask(Time.t(i,0), coronavirusappDownloader);
+            timerTask.addTask(Time.t(i,30), coronavirusappDownloader);
+        }
 
         Runnable rkiDownloader = new RKIDownloader(config, gson, rethinkDBAPI);
         timerTask.addTask(Time.t(0, 0), rkiDownloader);
         timerTask.addTask(Time.t(12,0), rkiDownloader);
 
-        rkiDownloader.run();
+        //rkiDownloader.run();
         coronavirusappDownloader.run();
+        //Runnable coronaVirusDownloadHistory = new CoronaVirusDownloadHistory(rethinkDBAPI, gson, config);
+        //coronaVirusDownloadHistory.run();
     }
 
     public RethinkDB getRethinkDB() {
